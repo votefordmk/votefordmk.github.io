@@ -1,6 +1,10 @@
 $(document).ready(function() {
     var profile_details = "";  
 var category_list=[];
+
+dis_flag='style="display:block;"';
+dis_count=0;
+
     $.each(data, function(key, profile_value) {
         
        var note          = profile_value['note'];
@@ -8,10 +12,14 @@ var category_list=[];
        var url = profile_value['url'];
        var category_details = category.split(",");
 
-
-profile_details +=  '<div data-w-id="38b9e8b8-0a9b-2cc4-92ad-1f22767dd9db" class="collection-item mix w-dyn-item">';
+if(dis_count>5){dis_flag='style="display:none;"';}
+else{dis_count++;}
+profile_details +=  '<div data-w-id="38b9e8b8-0a9b-2cc4-92ad-1f22767dd9db" '+dis_flag+' class="collection-item mix w-dyn-item">';
 profile_details += '<div class="image-div">';
-profile_details +=  '<video width="320" height="240" controls><source src="'+url+'" type="video/mp4">Your browser does not support the video tag.</video>';
+if(url.search("youtube.com")>-1){
+profile_details +=  '<iframe width="320" height="240" src="'+url+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';}
+else{
+profile_details +=  '<video width="320" height="240" controls><source src="'+url+'" type="video/mp4">Your browser does not support the video tag.</video>';}
 profile_details +=  '</div>';
         profile_details	+=	'<div class="bio-text-block w-richtext">';
         profile_details	+=	'<p>'+note+'</p>';
@@ -83,7 +91,7 @@ category_details+='<div class="filter-item w-dyn-item"><div class="html-embed w-
 
 
     $('.filter-item').click(function(){
-      
+loading_size=-1;
         var navigationCategory = slug($(this).text());
          $('#filter-list .w-dyn-item').delay(500).css('display', 'none');
        $('.' + navigationCategory).delay(500).css('display', 'block');
@@ -92,7 +100,7 @@ category_details+='<div class="filter-item w-dyn-item"><div class="html-embed w-
          $(this).addClass('filter-active');
    });
  
- 
+/* 
     // Code#004: Show All
     $('.filter-item:first-child').click(function(){
     
@@ -102,7 +110,7 @@ category_details+='<div class="filter-item w-dyn-item"><div class="html-embed w-
  
     // Code#005: Set Active for Category "All"
     $('.filter-item:first-child').addClass('filter-active');
-
+*/
  
 
     // Reusable function to convert any string/text to css-friendly format
@@ -176,8 +184,30 @@ category_details+='<div class="filter-item w-dyn-item"><div class="html-embed w-
         mixer.filter(selectorString);
 
     });
-$("#General").click()
+//$("#General").click();
 });
+var loading_size=6;
+$(window).scroll(function() {
+    if($(window).scrollTop() > $(document).height() - $(window).height()-1) {
+if(loading_size<0){return false;}
+$('.w-dyn-item').each(function (i) {
+if(loading_size==0){loading_size=6;return false;}
+if(this.getAttribute("style")=="display:none;")
+{
+this.setAttribute("style","display:block;");
+//$(this).removeAttr("style");
+loading_size-=1;
+}
+if($('.w-dyn-item').length==(i+1)){
+$('#filter-list .w-dyn-item').delay(500).css('display', 'block');
+loading_size=-1;return false;}
+});
+
+
+    }
+});
+
+
 
 
         function shareOnFB() {
