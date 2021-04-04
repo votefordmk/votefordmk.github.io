@@ -186,8 +186,12 @@ loading_size=-1;
     });
 //$("#General").click();
 });
+
 var loading_size=6;
-$(window).scroll(function() {
+$(document.body).on('touchmove', onScroll); // for mobile
+$(window).on('scroll', onScroll); 
+
+function onScroll() {
     if($(window).scrollTop() > $(document).height() - $(window).height()-1) {
 if(loading_size<0){return false;}
 $('.w-dyn-item').each(function (i) {
@@ -205,7 +209,7 @@ loading_size=-1;return false;}
 
 
     }
-});
+}
 
 
 
