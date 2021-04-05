@@ -193,7 +193,7 @@ $(window).on('scroll', onScroll);
 
 function onScroll() {
     //if($(window).scrollTop() > $(document).height() - $(window).height()-1) {
-if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight ) { 	
+if( $(window).scrollTop() + window.innerHeight >= document.body.scrollHeight - 1 ) { 	
 if(loading_size<0){return false;}
 $('.w-dyn-item').each(function (i) {
 if(loading_size==0){loading_size=6;return false;}
