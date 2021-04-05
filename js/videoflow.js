@@ -18,7 +18,7 @@ profile_details +=  '<div data-w-id="38b9e8b8-0a9b-2cc4-92ad-1f22767dd9db" '+dis
 profile_details += '<div class="image-div">';
 if(url.search("youtube.com")>-1){	
 profile_details +=  '<iframe width="320" height="240" src="'+url+'" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>';}
-elseif(url.search("facebook.com")>-1){
+else if(url.search("facebook.com")>-1){
 profile_details +=  '<iframe src="'+url+'" width="320" height="240" style="border:none;overflow:hidden" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true"></iframe>';}
 else{
 profile_details +=  '<video width="320" height="240" controls><source src="'+url+'" type="video/mp4">Your browser does not support the video tag.</video>';}
